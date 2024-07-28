@@ -2,6 +2,5 @@ streamlit
 openai
 slack_sdk
 pandas
-python-dotenev
 requests
 time
