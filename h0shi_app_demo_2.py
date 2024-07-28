@@ -8,7 +8,6 @@ import streamlit as st
 import openai
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
-from dotenv import load_dotenv
 import re
 import pandas as pd
 import logging
