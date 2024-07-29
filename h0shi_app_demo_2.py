@@ -275,7 +275,7 @@ else:
                 openai.api_key = api_token
                 train_file = openai.files.create(file=open(train_data, "rb"), purpose="fine-tune")
                 validation_file = openai.files.create(file=open(test_data, "rb"), purpose="fine-tune")
-                response = openai.fine_tuning.jobs.create(model="gpt-4o-mini-2024-07-18", training_file=train_file.id, validation_file=validation_file.id, hyperparameters={"n_epochs": 3})
+                response = openai.fine_tuning.jobs.create(model="gpt-4o-mini", training_file=train_file.id, validation_file=validation_file.id, hyperparameters={"n_epochs": 3})
                 logging.info(f"Fine-tuning started with job ID: {response.id}")
                 return response.id
             finetuning_ids = []
