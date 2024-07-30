@@ -322,8 +322,8 @@ else:
                         response = openai.fine_tuning.jobs.retrieve(finetuning_id)
                         model_name = response.fine_tuned_model
                         model_names.append(model_name)
+                        save_model(st.session_state.username, model_name)
                     st.session_state.model_names = model_names
-                    st.session_state.all_succeeded = True
                     st.session_state.all_succeeded = True
                     st.success("Fine-tuning succeeded!")
                     st.rerun()
