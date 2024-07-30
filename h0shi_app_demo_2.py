@@ -30,12 +30,6 @@ c.execute('''CREATE TABLE IF NOT EXISTS users (
                 openai_api_key TEXT,
                 slack_api_key TEXT
             )''')
-c.execute('''CREATE TABLE IF NOT EXISTS models (
-                username TEXT,
-                model_name TEXT,
-                PRIMARY KEY (username, model_name)
-            )''')
-conn.commit()
 
 def load_user(username):
     c.execute('SELECT * FROM users WHERE username=?', (username,))
@@ -46,13 +40,6 @@ def save_user(username, password, openai_api_key=None, slack_api_key=None):
               (username, password, openai_api_key, slack_api_key))
     conn.commit()
 
-def load_models(username):
-    c.execute('SELECT model_name FROM models WHERE username=?', (username,))
-    return [row[0] for row in c.fetchall()]
-
-def save_model(username, model_name):
-    c.execute('INSERT OR REPLACE INTO models (username, model_name) VALUES (?, ?)', (username, model_name))
-    conn.commit()
 
 st.title('模倣ボット')
 
@@ -73,11 +60,7 @@ if 'user_names' not in st.session_state:
     st.session_state.user_names = []
 if 'model_names' not in st.session_state:
     st.session_state.model_names = []
-if 'existing_models' not in st.session_state:
-    st.session_state.existing_models = {}
 
-def get_existing_models(username):
-    return load_models(username)
 
 if not st.session_state.logged_in:
     login_option = st.selectbox("Choose an option", ["Login", "Register"])
@@ -322,7 +305,6 @@ else:
                         response = openai.fine_tuning.jobs.retrieve(finetuning_id)
                         model_name = response.fine_tuned_model
                         model_names.append(model_name)
-                        save_model(st.session_state.username, model_name)
                     st.session_state.model_names = model_names
                     st.session_state.all_succeeded = True
                     st.success("Fine-tuning succeeded!")
