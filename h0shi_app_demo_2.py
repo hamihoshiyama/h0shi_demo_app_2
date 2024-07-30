@@ -31,15 +31,6 @@ c.execute('''CREATE TABLE IF NOT EXISTS users (
                 slack_api_key TEXT
             )''')
 
-def load_user(username):
-    c.execute('SELECT * FROM users WHERE username=?', (username,))
-    return c.fetchone()
-
-def save_user(username, password, openai_api_key=None, slack_api_key=None):
-    c.execute('INSERT OR REPLACE INTO users (username, password, openai_api_key, slack_api_key) VALUES (?, ?, ?, ?)',
-              (username, password, openai_api_key, slack_api_key))
-    conn.commit()
-
 
 st.title('模倣ボット')
 
