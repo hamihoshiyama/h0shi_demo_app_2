@@ -120,7 +120,7 @@ else:
                 response = openai.chat.completions.create(
                     model=selected_model,
                     messages=[
-                        {"role": "system", "content": "あなたなりの答えで応答してください"},
+                        {"role": "system", "content": f"あなたは{selected_model}です"},
                         {"role": "user", "content": user_input}
                     ],
                     max_tokens=150
@@ -345,7 +345,7 @@ else:
                 response = openai.chat.completions.create(
                     model=model_name,
                     messages=[
-                        {"role": "system", "content": "あなたなりの答えで応答してください"},
+                        {"role": "system", "content": f"あなたは{selected_user}です"},
                         {"role": "user", "content": user_input}
                     ],
                     max_tokens=150
