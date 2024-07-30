@@ -93,6 +93,7 @@ if not st.session_state.logged_in:
                 st.session_state.openai_api_key = user[2]
                 st.session_state.slack_api_key = user[3]
                 st.success("Login successful")
+                st.session_state.existing_models = get_existing_models(username)
                 st.rerun()
             else:
                 st.error("Invalid username or password")
